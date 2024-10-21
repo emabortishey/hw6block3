@@ -39,16 +39,21 @@ public:
 	}
 	reservior(const reservior& obj) : width{ obj.width }, length{ obj.length }, max_depth{ obj.max_depth } { strcpy_s(name, strlen(name) + 1, obj.name); strcpy_s(type, strlen(type) + 1, obj.type); }
 
-	void set_name(char* name_P) { strcpy_s(name, strlen(name) + 1, name_P); }
-	void set_type(char* type_P) { strcpy_s(type, strlen(type) + 1, type_P); }
+	void set_name(char* name_P);
+	void set_type(char* type_P);
 	void set_width(int width_P) { width = width_P; }
 	void set_length(int length_P) { length = length_P; }
 	void set_max_depth(int max_depth_P) { max_depth = max_depth_P; }
 
-	const char* get_name() { return name; }
-	const char* get_type() { return type; }
-	int get_width() { return width; }
-	int get_length() { return length; }
-	int get_max_depth() { return max_depth; }
+	int calculate_volume() const { return width * length * max_depth; }
+	int calculate_area() const { return width * length; } 
+	int if_type_same(const reservior& obj) const;
+	int compare_areas(const reservior& obj) const;
+
+	const char* get_name() const { return name; }
+	const char* get_type() const { return type; }
+	int get_width() const { return width; }
+	int get_length() const { return length; }
+	int get_max_depth() const { return max_depth; }
 };
 
