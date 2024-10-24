@@ -53,15 +53,7 @@ public:
 
 	void print() 
 	{
-		cout << name; 
-		cout << '\t'; 
-		cout << type; 
-		cout << '\t'; 
-		cout << width; 
-		cout << '\t'; 
-		cout << length; 
-		cout << '\t'; 
-		cout << max_depth; 
+		cout << name << '\t' << type << '\t' << width << '\t'  << length  << '\t'  << max_depth; 
 	}
 
 	const char* get_name() const { return name; }

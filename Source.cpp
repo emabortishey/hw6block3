@@ -22,7 +22,6 @@ int main()
 	do {
 
 		cout << "\n\nВведите выбор:\n1. Заполнить всё\n2. Заполнить какой-либо индекс\n3. Вывести всё\n4. Вывести по индексу\n5. Вычислить объём по индексу\n6. Вычислить площадь по индексу\n7. Сравнить типы\n8. Сравнить площадь одинаковых типов\n9. Записать в файл весь массив\n10. Удалить по индексу\n11. Добавить в конец й водоём\n0. Выход\n";
-
 		cin >> choice;
 
 		switch (choice)
@@ -206,14 +205,14 @@ int main()
 				mass[i].~reservior();
 			}
 
-			size++;
+			reservior* mass = new reservior[size+1];
 
-			reservior* mass = new reservior[size];
-
-			for (int i = 0; i < size; i++)
+			for (int i = 0; i < size+1; i++)
 			{
 				mass[i].coppy(buff_mass[i]);
 			}
+
+			size++;
 
 			choice = -1;
 
