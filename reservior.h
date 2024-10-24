@@ -10,30 +10,30 @@ class reservior
 
 public:
 
-	reservior() : reservior(0, 0, 0, 0, 0) { }
-	reservior(char* name_P) : reservior(name_P, 0, 0, 0, 0) { }
+	reservior() : reservior(nullptr, nullptr, 0, 0, 0) { }
+	reservior(char* name_P) : reservior(name_P, nullptr, 0, 0, 0) { }
 	reservior(char* name_P, char* type_P) : reservior(name_P, type_P, 0, 0, 0) { }
 	reservior(char* name_P, char* type_P, int width_P) : reservior(name_P, type_P, width_P, 0, 0) { }
 	reservior(char* name_P, char* type_P, int width_P, int length_P) : reservior(name_P, type_P, width_P, length_P, 0) { }
 	reservior(char* name_P, char* type_P, int width_P, int length_P, int max_depth_P) : width{ width_P }, length{ length_P }, max_depth{ max_depth_P }
 	{
-		if (name_P == 0)
+		if (name_P == nullptr)
 		{
-			name = new char[100];
-			strcpy_s(name, 100, name_P);
+			name = new char[100] {"none"};
 		}
 		else
 		{
+			name = new char[strlen(name_P) + 1];
 			strcpy_s(name, strlen(name) + 1, name_P);
 		}
 
-		if (type_P == 0)
+		if (type_P == nullptr)
 		{
-			type = new char[100];
-			strcpy_s(type, 100, type_P);
+			type = new char[100] {"none"};
 		}
 		else
 		{
+			type = new char[strlen(type_P)+1];
 			strcpy_s(type, strlen(type) + 1, type_P);
 		}
 	}
@@ -49,11 +49,31 @@ public:
 	int calculate_area() const { return width * length; } 
 	int if_type_same(const reservior& obj) const;
 	int compare_areas(const reservior& obj) const;
+	void coppy(const reservior& obj);
+
+	void print() 
+	{
+		cout << name; 
+		cout << '\t'; 
+		cout << type; 
+		cout << '\t'; 
+		cout << width; 
+		cout << '\t'; 
+		cout << length; 
+		cout << '\t'; 
+		cout << max_depth; 
+	}
 
 	const char* get_name() const { return name; }
 	const char* get_type() const { return type; }
 	int get_width() const { return width; }
 	int get_length() const { return length; }
 	int get_max_depth() const { return max_depth; }
+
+	~reservior()
+	{
+		delete[] name;
+		delete[] type;
+	}
 };
 

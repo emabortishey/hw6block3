@@ -45,3 +45,11 @@ int reservior::compare_areas(const reservior& obj) const
 	} 
 }
 
+void reservior::coppy(const reservior& obj)
+{
+	set_name(obj.name);
+	set_type(obj.type);
+	set_width(obj.width);
+	set_length(obj.length);
+	set_max_depth(obj.max_depth);
+}
