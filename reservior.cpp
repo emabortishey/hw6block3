@@ -16,6 +16,7 @@ void reservior::set_type(char* type_P)
 
 int reservior::if_type_same(const reservior& obj) const
 {
+	// проверка на одинаковые типы водоёмов
 	if (strcmp(obj.type, type) == 0)
 	{
 		return 0;
@@ -28,6 +29,7 @@ int reservior::if_type_same(const reservior& obj) const
 
 int reservior::compare_areas(const reservior& obj) const
 { 
+	// сравнение площадей водоёмов одного типа с предварительным сравнением типов
 	if (if_type_same(obj) == 0) 
 	{ 
 		if (calculate_area() > obj.calculate_area()) 
@@ -47,6 +49,8 @@ int reservior::compare_areas(const reservior& obj) const
 
 reservior& reservior::operator=(const reservior& obj)
 {
+	// вместо метода копирования решила перегрузить оператор присваивания
+
 	set_name(obj.name);
 	set_type(obj.type);
 	set_width(obj.width);
