@@ -1,13 +1,14 @@
 //#include <stdio.h>
 #include "reservior.h"
+#include <fstream>
 
-enum meow { fill_all = 1, fill_index, show_all, show_index, calc_volume, calc_area, if_type_ssame, compare_area, write_infile, delete_index, add_new };
+enum meow { fill_all = 1, fill_index, show_all, show_index, calc_volume, calc_area, if_type_ssame, compare_area, write_infile, write_binary, delete_index, add_new };
 
 int main()
 {
 	setlocale(LC_ALL, "russian");
 
-	int choice{ -1 }, choice2{ -1 }, size{ 1 };
+	int choice{ -1 }, choice2{ -1 }, size{ 4 };
 	char* buff_name{ new char[100] }, * buff_type{ new char[100] };
 	int buff_width, buff_length, buff_max_depth;
 	FILE* info;
@@ -17,11 +18,11 @@ int main()
 	char buff21[100]{ "bark1" };
 	char buff22[100]{ "bark2" };
 
-	reservior* mass = new reservior[size];
+	reservior* water = new reservior[size];
 
 	do {
 
-		cout << "\n\nВведите выбор:\n1. Заполнить всё\n2. Заполнить какой-либо индекс\n3. Вывести всё\n4. Вывести по индексу\n5. Вычислить объём по индексу\n6. Вычислить площадь по индексу\n7. Сравнить типы\n8. Сравнить площадь одинаковых типов\n9. Записать в файл весь массив\n10. Удалить по индексу\n11. Добавить в конец й водоём\n0. Выход\n";
+		cout << "\n\nВведите выбор:\n1. Заполнить всё\n2. Заполнить какой-либо индекс\n3. Вывести всё\n4. Вывести по индексу\n5. Вычислить объём по индексу\n6. Вычислить площадь по индексу\n7. Сравнить типы\n8. Сравнить площадь одинаковых типов\n9. Записать в файл весь массив\n10. Удалить по индексу\n11. Добавить в конец 1 водоём\n0. Выход\n";
 		cin >> choice;
 
 		switch (choice)
@@ -39,11 +40,11 @@ int main()
 				cin >> buff_length;
 				cin >> buff_max_depth;
 
-				mass[i].set_name(buff_name);
-				mass[i].set_type(buff_type);
-				mass[i].set_width(buff_width);
-				mass[i].set_length(buff_length);
-				mass[i].set_max_depth(buff_max_depth);
+				water[i].set_name(buff_name);
+				water[i].set_type(buff_type);
+				water[i].set_width(buff_width);
+				water[i].set_length(buff_length);
+				water[i].set_max_depth(buff_max_depth);
 			}
 			break;
 		}
@@ -60,11 +61,11 @@ int main()
 			cin >> buff_length;
 			cin >> buff_max_depth;
 
-			mass[choice].set_name(buff_name);
-			mass[choice].set_type(buff_type);
-			mass[choice].set_width(buff_width);
-			mass[choice].set_length(buff_length);
-			mass[choice].set_max_depth(buff_max_depth);
+			water[choice].set_name(buff_name);
+			water[choice].set_type(buff_type);
+			water[choice].set_width(buff_width);
+			water[choice].set_length(buff_length);
+			water[choice].set_max_depth(buff_max_depth);
 
 			choice = -1;
 
@@ -75,7 +76,7 @@ int main()
 			for (int i = 0; i < size; i++)
 			{
 				cout << "\nВодоём номер " << i+1 << ": ";
-				mass[i].print();
+				water[i].print();
 			}
 			break;
 		}
@@ -84,7 +85,7 @@ int main()
 			cout << "\nВведите индекс: ";
 			cin >> choice;
 			cout << "\nВодоём под индексом " << choice << ": ";
-			mass[choice].print();
+			water[choice].print();
 			choice = -1;
 			break;
 		}
@@ -92,7 +93,7 @@ int main()
 		{
 			cout << "\nВведите индекс водоёма: ";
 			cin >> choice;
-			cout << "\nОбъём водоёма равен: " << mass[choice].calculate_volume();
+			cout << "\nОбъём водоёма равен: " << water[choice].calculate_volume();
 			choice = -1;
 			break;
 		}
@@ -100,7 +101,7 @@ int main()
 		{
 			cout << "\nВведите индекс водоёма: ";
 			cin >> choice;
-			cout << "\nПлощадь водоёма равна: " << mass[choice].calculate_area();
+			cout << "\nПлощадь водоёма равна: " << water[choice].calculate_area();
 			choice = -1;
 			break;
 		}
@@ -108,7 +109,7 @@ int main()
 		{
 			cout << "\nВведите два индекса массива для сравнения: ";
 			cin >> choice >> choice2;
-			if (mass[choice].if_type_same(mass[choice2]) == 0)
+			if (water[choice].if_type_same(water[choice2]) == 0)
 			{
 				cout << "\nТипы водоёмов одинаковы";
 			}
@@ -124,15 +125,15 @@ int main()
 		{
 			cout << "\nВведите два индекса массива для сравнения: ";
 			cin >> choice >> choice2;
-			if (mass[choice].compare_areas(mass[choice2]) == 0)
+			if (water[choice].compare_areas(water[choice2]) == 0)
 			{
 				cout << "\nПлощади водоёмов одинаковы";
 			}
-			else if (mass[choice].compare_areas(mass[choice2]) == 1)
+			else if (water[choice].compare_areas(water[choice2]) == 1)
 			{
 				cout << "\nПервый водоём больше второго";
 			}
-			else if (mass[choice].compare_areas(mass[choice2]) == -1)
+			else if (water[choice].compare_areas(water[choice2]) == -1)
 			{
 				cout << "\nПервый водоём меньше второго";
 			}
@@ -153,11 +154,11 @@ int main()
 
 			for (int i = 0; i < size; i++)
 			{
-				fprintf_s(info, "%s ", mass[i].get_name());
-				fprintf_s(info, "%s ", mass[i].get_type());
-				fprintf_s(info, "%d ", mass[i].get_width());
-				fprintf_s(info, "%d ", mass[i].get_length());
-				fprintf_s(info, "%d\n", mass[i].get_max_depth());
+				fprintf_s(info, "%s ", water[i].get_name());
+				fprintf_s(info, "%s ", water[i].get_type());
+				fprintf_s(info, "%d ", water[i].get_width());
+				fprintf_s(info, "%d ", water[i].get_length());
+				fprintf_s(info, "%d\n", water[i].get_max_depth());
 			}
 
 			if (fclose(info) == 0)
@@ -166,25 +167,61 @@ int main()
 			}
 			break;
 		}
+		case write_binary:
+		{
+
+			char* y = new char[100];
+			int x = 0;
+
+			ofstream file("info1.txt", ios::binary | ios::out);
+
+			for (int i = 0; i < size; i++)
+			{
+				file.write((char*)water[i].get_name(), strlen(water[i].get_name()));
+				file.write((char*)&" ",sizeof " ");
+				file.write((char*)water[i].get_type(), strlen(water[i].get_type()));
+				file.write((char*)&" ", sizeof " ");
+				file.write((char*)&water[i].get_width(), sizeof water[i].get_width());
+				file.write((char*)&water[i].get_length(), sizeof water[i].get_length());
+				file.write((char*)&water[i].get_max_depth(), sizeof water[i].get_max_depth());
+			}
+
+			file.close();
+
+			ifstream file2("info1.txt", ios::binary | ios::in);
+
+			for (int i = 0; i < size; i++)
+			{
+
+				file2.read((char*)y, 100);
+				cout << y << '\t';
+				file2.read((char*)y, 100);
+				cout << y << '\t';
+				file2.read((char*)x, sizeof x);
+				cout << x << '\t';
+				file2.read((char*)x, sizeof x);
+				cout << x << '\t';
+				file2.read((char*)x, sizeof x);
+				cout << x << '\n';
+			}
+
+			file2.close();
+
+			break;
+		}
 		case delete_index:
 		{
 			cout << "\nВведите индекс элемента для удаления: ";
 			cin >> choice;
 
-			for (int i = 0; i < choice; i++)
-			{
-				cout << i;
-				mass[i].coppy(mass[i]);
-			}
-
 			for (int i = choice; i < size-1; i++)
 			{
-				mass[i].coppy(mass[i + 1]);
+				water[i]= water[i + 1];
 			}
 
 			size--;
 
-			mass[size].~reservior();
+			water[size].~reservior();
 
 			choice = -1;
 
@@ -197,22 +234,22 @@ int main()
 
 			for (int i = 0; i < size; i++)
 			{
-				buff_mass[i].coppy(mass[i]);
+				buff_mass[i] = water[i];
 			}
 
 			for (int i = 0; i < size; i++)
 			{
-				mass[i].~reservior();
+				water[i].~reservior();
 			}
 
-			reservior* mass = new reservior[size+1];
+			size+=1;
 
-			for (int i = 0; i < size+1; i++)
+			reservior* water = new reservior[size];
+
+			for (int i = 0; i < size; i++)
 			{
-				mass[i].coppy(buff_mass[i]);
+				water[i]= buff_mass[i];
 			}
-
-			size++;
 
 			choice = -1;
 
@@ -220,6 +257,8 @@ int main()
 		}
 		}
 	} while (choice != 0);
+
+	
 
 	return 0;
 }

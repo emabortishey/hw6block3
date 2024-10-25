@@ -11,11 +11,11 @@ class reservior
 public:
 
 	reservior() : reservior(nullptr, nullptr, 0, 0, 0) { }
-	reservior(char* name_P) : reservior(name_P, nullptr, 0, 0, 0) { }
-	reservior(char* name_P, char* type_P) : reservior(name_P, type_P, 0, 0, 0) { }
-	reservior(char* name_P, char* type_P, int width_P) : reservior(name_P, type_P, width_P, 0, 0) { }
-	reservior(char* name_P, char* type_P, int width_P, int length_P) : reservior(name_P, type_P, width_P, length_P, 0) { }
-	reservior(char* name_P, char* type_P, int width_P, int length_P, int max_depth_P) : width{ width_P }, length{ length_P }, max_depth{ max_depth_P }
+	reservior(const char* name_P) : reservior(name_P, nullptr, 0, 0, 0) { }
+	reservior(const char* name_P, const  char* type_P) : reservior(name_P, type_P, 0, 0, 0) { }
+	reservior(const char* name_P, const char* type_P, int width_P) : reservior(name_P, type_P, width_P, 0, 0) { }
+	reservior(const char* name_P, const char* type_P, int width_P, int length_P) : reservior(name_P, type_P, width_P, length_P, 0) { }
+	reservior(const char* name_P, const char* type_P, int width_P, int length_P, int max_depth_P) : width{ width_P }, length{ length_P }, max_depth{ max_depth_P }
 	{
 		if (name_P == nullptr)
 		{
@@ -24,7 +24,7 @@ public:
 		else
 		{
 			name = new char[strlen(name_P) + 1];
-			strcpy_s(name, strlen(name) + 1, name_P);
+			strcpy_s(name, strlen(name_P) + 1, name_P);
 		}
 
 		if (type_P == nullptr)
@@ -34,7 +34,7 @@ public:
 		else
 		{
 			type = new char[strlen(type_P)+1];
-			strcpy_s(type, strlen(type) + 1, type_P);
+			strcpy_s(type, strlen(type_P) + 1, type_P);
 		}
 	}
 	reservior(const reservior& obj) : width{ obj.width }, length{ obj.length }, max_depth{ obj.max_depth } { strcpy_s(name, strlen(name) + 1, obj.name); strcpy_s(type, strlen(type) + 1, obj.type); }
@@ -49,7 +49,7 @@ public:
 	int calculate_area() const { return width * length; } 
 	int if_type_same(const reservior& obj) const;
 	int compare_areas(const reservior& obj) const;
-	void coppy(const reservior& obj);
+	reservior& operator=(const reservior& obj);
 
 	void print() 
 	{
@@ -58,9 +58,9 @@ public:
 
 	const char* get_name() const { return name; }
 	const char* get_type() const { return type; }
-	int get_width() const { return width; }
-	int get_length() const { return length; }
-	int get_max_depth() const { return max_depth; }
+	const int& get_width() const { return width; }
+	const int& get_length() const { return length; }
+	const int& get_max_depth() const { return max_depth; }
 
 	~reservior()
 	{

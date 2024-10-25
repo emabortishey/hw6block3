@@ -4,14 +4,14 @@ void reservior::set_name(char* name_P)
 {
 	delete[] name;
 	name = new char[strlen(name_P) + 1];
-	strcpy_s(name, strlen(name) + 1, name_P);
+	strcpy_s(name, strlen(name_P) + 1, name_P);
 }
 
 void reservior::set_type(char* type_P)
 {
 	delete[] type;
 	type = new char[strlen(type_P) + 1];
-	strcpy_s(type, strlen(type) + 1, type_P);
+	strcpy_s(type, strlen(type_P) + 1, type_P);
 }
 
 int reservior::if_type_same(const reservior& obj) const
@@ -45,11 +45,13 @@ int reservior::compare_areas(const reservior& obj) const
 	} 
 }
 
-void reservior::coppy(const reservior& obj)
+reservior& reservior::operator=(const reservior& obj)
 {
 	set_name(obj.name);
 	set_type(obj.type);
 	set_width(obj.width);
 	set_length(obj.length);
 	set_max_depth(obj.max_depth);
+
+	return *this;
 }
