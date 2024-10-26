@@ -51,6 +51,11 @@ reservior& reservior::operator=(const reservior& obj)
 {
 	// вместо метода копирования решила перегрузить оператор присваивания
 
+	// проверка на самокопирование
+	if(this == &obj)
+	{
+		return *this;
+	}
 	set_name(obj.name);
 	set_type(obj.type);
 	set_width(obj.width);
